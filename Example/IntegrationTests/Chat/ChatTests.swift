@@ -3,6 +3,7 @@ import XCTest
 @testable import WalletConnectChat
 import WalletConnectUtils
 @testable import WalletConnectKMS
+@testable import WalletConnectSync
 import WalletConnectRelay
 import Combine
 
@@ -35,7 +36,12 @@ final class ChatTests: XCTestCase {
             logger: logger,
             keychainStorage: keychain,
             keyValueStorage: keyValueStorage)
-        return ChatClientFactory.create(keyserverURL: keyserverURL, relayClient: relayClient, networkingInteractor: networkingInteractor, keychain:  keychain, logger: logger, keyValueStorage: keyValueStorage)
+        let syncClient = SyncClientFactory.create(
+            networkInteractor: networkingInteractor,
+            crypto: DefaultCryptoProvider(),
+            keychain: keychain
+        )
+        return ChatClientFactory.create(keyserverURL: keyserverURL, relayClient: relayClient, networkingInteractor: networkingInteractor, keychain:  keychain, logger: logger, keyValueStorage: keyValueStorage, syncClient: syncClient)
     }
 
     func testInvite() async throws {

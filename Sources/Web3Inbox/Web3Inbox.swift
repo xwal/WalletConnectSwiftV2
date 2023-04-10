@@ -18,9 +18,14 @@ public final class Web3Inbox {
     /// Web3Inbox instance config method
     /// - Parameters:
     ///   - account: Web3Inbox initial account
-    static public func configure(account: Account, onSign: @escaping SigningCallback) {
+    ///   - crypto: Crypto utils implementation
+    static public func configure(
+        account: Account,
+        crypto: CryptoProvider,
+        onSign: @escaping SigningCallback
+    ) {
         Web3Inbox.account = account
         Web3Inbox.onSign = onSign
-        Chat.configure()
+        Chat.configure(crypto: crypto)
     }
 }
