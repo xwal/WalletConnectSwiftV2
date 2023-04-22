@@ -19,6 +19,14 @@ struct ImportView: View {
                 try await presenter.didPressImport()
             }
             .padding(16.0)
+
+            PlainButton {
+                try await presenter.didPressRandom()
+            } label: {
+                Text("Create new account")
+                    .foregroundColor(.white)
+            }
+            .padding(.bottom, 16)
         }
     }
 }
